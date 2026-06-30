@@ -59,9 +59,11 @@ header.hero p{color:#aab3d6;max-width:640px;margin:0;font-size:15px;}
   font-size:14px;background:#fbfcfe;transition:border-color .15s, box-shadow .15s;
 }
 .field input:focus,.field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(59,130,246,.15);}
-.coord-row{display:flex;gap:8px;}
-.coord-row input{flex:1;}
-.coord-row select{width:84px;flex:none;}
+.coord-row{display:flex;gap:8px;align-items:center;}
+.coord-row input{flex:1;min-width:0;padding:10px 8px;text-align:center;}
+.coord-row select{width:70px;flex:none;padding:10px 8px;}
+.dec-view{font-size:12px;color:var(--grey);margin-top:6px;font-weight:500;}
+.dec-view span{font-weight:700;color:var(--blue);}
 
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
 button{
@@ -171,7 +173,7 @@ footer{text-align:center;color:var(--grey);font-size:12px;padding:30px 0 10px;}
 <header class="hero">
   <div class="eyebrow"><span class="dot"></span>Ilmu Falak</div>
   <h1>Kalkulator Hisab Awal Bulan Hijriyah & Gerhana Bulan</h1>
-  <p>Oleh : M.Sholeh Bakhruddin</p>
+  <p>Oleh: M. Sholeh Bakhruddin</p>
 </header>
 
 <div class="card panel">
@@ -183,30 +185,39 @@ footer{text-align:center;color:var(--grey);font-size:12px;padding:30px 0 10px;}
       <label>Kota</label>
       <input type="text" id="kota" value="Surabaya">
     </div>
+    
     <div class="field">
       <label>Lintang Tempat (Lt)</label>
       <div class="coord-row">
-        <input type="number" id="lintangVal" value="7.2575" step="any">
-        <select id="lintangArah"><option value="LS">LS</option><option value="LU">LU</option></select>
+        <input type="number" id="lintangDerajat" value="7" placeholder="°" oninput="updateKoordinat()">
+        <input type="number" id="lintangMenit" value="15" placeholder="'" oninput="updateKoordinat()">
+        <input type="number" id="lintangDetik" value="27" step="any" placeholder="&quot;" oninput="updateKoordinat()">
+        <select id="lintangArah" onchange="updateKoordinat()"><option value="LS">LS</option><option value="LU">LU</option></select>
       </div>
+      <div class="dec-view">Hasil Desimal: <span id="lintangDecView">7.257500</span></div>
     </div>
+    
     <div class="field">
       <label>Bujur Tempat (λ)</label>
       <div class="coord-row">
-        <input type="number" id="bujurVal" value="112.7521" step="any">
-        <select id="bujurArah"><option value="BT">BT</option><option value="BB">BB</option></select>
+        <input type="number" id="bujurDerajat" value="112" placeholder="°" oninput="updateKoordinat()">
+        <input type="number" id="bujurMenit" value="45" placeholder="'" oninput="updateKoordinat()">
+        <input type="number" id="bujurDetik" value="7.56" step="any" placeholder="&quot;" oninput="updateKoordinat()">
+        <select id="bujurArah" onchange="updateKoordinat()"><option value="BT">BT</option><option value="BB">BB</option></select>
       </div>
+      <div class="dec-view">Hasil Desimal: <span id="bujurDecView">112.752100</span></div>
     </div>
+    
     <div class="field">
-      <label>Time Zone (GMT)</label>
+      <label>Zona Waktu (GMT/UTC)</label>
       <input type="number" id="tz" value="7" step="any">
     </div>
     <div class="field">
-      <label>Tinggi Tempat (m dpl)</label>
+      <label>Ketinggian Tempat (MDPL)</label>
       <input type="number" id="tt" value="5" step="any">
     </div>
     <div class="field">
-      <label>Bulan Hijriyah yang Dicari Awalnya</label>
+      <label>Bulan Hijriyah</label>
       <select id="bulanH">
         <option value="1">1 — Muharram</option>
         <option value="2">2 — Shafar</option>
@@ -264,7 +275,7 @@ footer{text-align:center;color:var(--grey);font-size:12px;padding:30px 0 10px;}
 
   <div class="section-title"><div class="num">3</div><h3>Jam Maghrib & Julian Date</h3><div class="line"></div></div>
   <div class="accordion-item" id="acc3">
-    <div class="accordion-head"><h4>Tabel 3 — Waktu Ghurub di Lokasi</h4><span class="chev">▾</span></div>
+    <div class="accordion-head"><h4>Tabel 3 — Waktu Terbenam Matahari (Ghurub) di Lokasi</h4><span class="chev">▾</span></div>
     <div class="accordion-body"><div class="accordion-inner"><table>
       <thead><tr><th>Variabel</th><th>Rumus / Keterangan</th><th>Hasil Desimal</th><th>Hasil DMS</th></tr></thead>
       <tbody id="tbl3"></tbody>
@@ -275,7 +286,7 @@ footer{text-align:center;color:var(--grey);font-size:12px;padding:30px 0 10px;}
 
   <div class="section-title"><div class="num">4</div><h3>Data Matahari</h3><div class="line"></div></div>
   <div class="accordion-item" id="acc4">
-    <div class="accordion-head"><h4>Tabel 4 — Posisi Matahari saat Ghurub</h4><span class="chev">▾</span></div>
+    <div class="accordion-head"><h4>Tabel 4 — Posisi Matahari Saat Ghurub</h4><span class="chev">▾</span></div>
     <div class="accordion-body"><div class="accordion-inner"><table>
       <thead><tr><th>Variabel</th><th>Rumus / Keterangan</th><th>Hasil Desimal</th><th>Hasil DMS</th></tr></thead>
       <tbody id="tbl4"></tbody>
@@ -284,7 +295,7 @@ footer{text-align:center;color:var(--grey);font-size:12px;padding:30px 0 10px;}
 
   <div class="section-title"><div class="num">5</div><h3>Data Bulan (Hilal)</h3><div class="line"></div></div>
   <div class="accordion-item" id="acc5">
-    <div class="accordion-head"><h4>Tabel 5 — Posisi Hilal saat Ghurub</h4><span class="chev">▾</span></div>
+    <div class="accordion-head"><h4>Tabel 5 — Posisi Hilal Saat Ghurub</h4><span class="chev">▾</span></div>
     <div class="accordion-body"><div class="accordion-inner"><table>
       <thead><tr><th>Variabel</th><th>Rumus / Keterangan</th><th>Hasil Desimal</th><th>Hasil DMS</th></tr></thead>
       <tbody id="tbl5"></tbody>
@@ -305,7 +316,7 @@ footer{text-align:center;color:var(--grey);font-size:12px;padding:30px 0 10px;}
 
   <div id="viewGerhana" class="view">
 
-  <div class="section-title"><div class="num">7</div><h3>Hisab Gerhana Bulan (Khusuf al-Qamar)</h3><div class="line"></div></div>
+  <div class="section-title"><div class="num">7</div><h3>Hisab Gerhana Bulan (Khusuf Al-Qamar)</h3><div class="line"></div></div>
   <div class="accordion-item" id="acc7a">
     <div class="accordion-head"><h4>Tabel 7a — Perhitungan Dasar Gerhana</h4><span class="chev">▾</span></div>
     <div class="accordion-body"><div class="accordion-inner"><table>
@@ -338,7 +349,7 @@ footer{text-align:center;color:var(--grey);font-size:12px;padding:30px 0 10px;}
 
 </div>
 
-<footer>Semoga Bermanfaat🙏😊</footer>
+<footer>Semoga Bermanfaat 🙏😊</footer>
 </div>
 
 <script>
@@ -389,6 +400,52 @@ const PASARAN_NAMES=["Kliwon","Legi","Pahing","Pon","Wage"];
 const BULAN_MASEHI=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const BULAN_HIJRI=["Muharram","Shafar","Rabi'ul Awal","Rabi'ul Akhir","Jumadil Awal","Jumadil Akhir","Rajab","Sya'ban","Ramadhan","Syawal","Dzulqa'dah","Dzulhijjah"];
 
+/* ===================== KOORDINAT & GPS ===================== */
+function updateKoordinat() {
+  let latD = parseFloat(document.getElementById('lintangDerajat').value) || 0;
+  let latM = parseFloat(document.getElementById('lintangMenit').value) || 0;
+  let latS = parseFloat(document.getElementById('lintangDetik').value) || 0;
+  let latDec = latD + (latM/60) + (latS/3600);
+  document.getElementById('lintangDecView').textContent = latDec.toFixed(6);
+
+  let lonD = parseFloat(document.getElementById('bujurDerajat').value) || 0;
+  let lonM = parseFloat(document.getElementById('bujurMenit').value) || 0;
+  let lonS = parseFloat(document.getElementById('bujurDetik').value) || 0;
+  let lonDec = lonD + (lonM/60) + (lonS/3600);
+  document.getElementById('bujurDecView').textContent = lonDec.toFixed(6);
+}
+// Init awal
+updateKoordinat();
+
+document.getElementById('btnGps').addEventListener('click',()=>{
+  const status=document.getElementById('gpsStatus');
+  if(!navigator.geolocation){status.textContent="Geolocation tidak didukung browser ini.";return;}
+  status.textContent="Mengambil lokasi...";
+  navigator.geolocation.getCurrentPosition(pos=>{
+    let lat = pos.coords.latitude, lon = pos.coords.longitude;
+    
+    let absLat = Math.abs(lat);
+    document.getElementById('lintangDerajat').value = Math.floor(absLat);
+    document.getElementById('lintangMenit').value = Math.floor((absLat % 1) * 60);
+    document.getElementById('lintangDetik').value = ((((absLat % 1) * 60) % 1) * 60).toFixed(2);
+    document.getElementById('lintangArah').value = lat < 0 ? "LS" : "LU";
+
+    let absLon = Math.abs(lon);
+    document.getElementById('bujurDerajat').value = Math.floor(absLon);
+    document.getElementById('bujurMenit').value = Math.floor((absLon % 1) * 60);
+    document.getElementById('bujurDetik').value = ((((absLon % 1) * 60) % 1) * 60).toFixed(2);
+    document.getElementById('bujurArah').value = lon < 0 ? "BB" : "BT";
+    
+    updateKoordinat();
+
+    let tzGuess = Math.round(lon/15);
+    document.getElementById('tz').value=tzGuess;
+    status.textContent="Lokasi berhasil diambil ✓";
+  },err=>{
+    status.textContent="Gagal mengambil lokasi (izin ditolak). Silakan isi manual.";
+  });
+});
+
 /* ===================== NAVIGASI ANTAR HASIL ===================== */
 document.querySelectorAll('.nav-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
@@ -407,25 +464,6 @@ document.querySelectorAll('.accordion-head').forEach(h=>{
   });
 });
 
-/* ===================== GPS ===================== */
-document.getElementById('btnGps').addEventListener('click',()=>{
-  const status=document.getElementById('gpsStatus');
-  if(!navigator.geolocation){status.textContent="Geolocation tidak didukung browser ini.";return;}
-  status.textContent="Mengambil lokasi...";
-  navigator.geolocation.getCurrentPosition(pos=>{
-    let lat=pos.coords.latitude, lon=pos.coords.longitude;
-    document.getElementById('lintangVal').value=Math.abs(lat).toFixed(6);
-    document.getElementById('lintangArah').value= lat<0 ? "LS":"LU";
-    document.getElementById('bujurVal').value=Math.abs(lon).toFixed(6);
-    document.getElementById('bujurArah').value= lon<0 ? "BB":"BT";
-    let tzGuess = Math.round(lon/15);
-    document.getElementById('tz').value=tzGuess;
-    status.textContent="Lokasi berhasil diambil ✓";
-  },err=>{
-    status.textContent="Gagal mengambil lokasi (izin ditolak). Silakan isi manual.";
-  });
-});
-
 /* ===================== ROW HELPER ===================== */
 function row(varName,formula,decVal,decDigits,dmsVal,isTime){
   let dms = (dmsVal===null||dmsVal===undefined) ? "—" : (isTime? toJMD(dmsVal): toDMS(dmsVal));
@@ -441,10 +479,19 @@ document.getElementById('btnHitung').addEventListener('click', hitungSemua);
 function hitungSemua(){
   // ---- Ambil Input ----
   const kota = document.getElementById('kota').value || "-";
-  let Lt = parseFloat(document.getElementById('lintangVal').value);
+  
+  let latD = parseFloat(document.getElementById('lintangDerajat').value) || 0;
+  let latM = parseFloat(document.getElementById('lintangMenit').value) || 0;
+  let latS = parseFloat(document.getElementById('lintangDetik').value) || 0;
+  let Lt = latD + (latM/60) + (latS/3600);
   if(document.getElementById('lintangArah').value==="LS") Lt = -Lt;
-  let lambda = parseFloat(document.getElementById('bujurVal').value);
+  
+  let lonD = parseFloat(document.getElementById('bujurDerajat').value) || 0;
+  let lonM = parseFloat(document.getElementById('bujurMenit').value) || 0;
+  let lonS = parseFloat(document.getElementById('bujurDetik').value) || 0;
+  let lambda = lonD + (lonM/60) + (lonS/3600);
   if(document.getElementById('bujurArah').value==="BB") lambda = -lambda;
+
   const TZ = parseFloat(document.getElementById('tz').value);
   const TTm = parseFloat(document.getElementById('tt').value);
   const BlnH = parseFloat(document.getElementById('bulanH').value);
@@ -737,25 +784,25 @@ function hitungSemua(){
   /* ============ TABEL 6: KESIMPULAN AWAL BULAN ============ */
   const namaBulanTarget = BULAN_HIJRI[(BlnH-1+12)%12];
   let ghurubHariName = HARI_NAMES[mod360fix(Math.floor(d.JD3)+2+ (d.GrWD>=24?1:0) ,7)];
-  // gunakan tanggal masehi hasil tabel2 sbg tanggal ghurub acuan (hari ijtimak / hari berikutnya jika ijtimak sebelum ghurub)
+  
   let summaryHtml = "";
   function sCard(label,val){return "<div class='summary-item'><div class='lbl'>"+label+"</div><div class='val'>"+val+"</div></div>";}
   summaryHtml += sCard("Ijtima' (Konjungsi)", Tgl2+" "+BULAN_MASEHI[bln2Idx]+" "+Thn2+" pukul "+toJMD(WD2)+" WD");
   summaryHtml += sCard("Hari / Pasaran Ijtima'", HARI_NAMES[Hr2]+" "+PASARAN_NAMES[Ps2]);
   summaryHtml += sCard("Tanggal Ghurub (Rukyat)", TglM+" "+BULAN_MASEHI[BulanM-1]+" "+ThnM);
   summaryHtml += sCard("Maghrib Pukul", toJMD(d.GrWD)+" WD");
-  summaryHtml += sCard("Arah Matahari (Azm)", fmt(AzmF,2)+"° / "+toDMS(AzmF));
-  summaryHtml += sCard("Arah Hilal (Azc)", fmt(Azc,2)+"° / "+toDMS(Azc));
-  summaryHtml += sCard("Arah Hilal dari Matahari (z)", fmt(zVar,2)+"°");
-  summaryHtml += sCard("Tinggi Haqiqi (hc)", fmt(hc,4)+"° / "+toDMS(hc));
-  summaryHtml += sCard("Tinggi Mar'i (hc')", fmt(hcTengah,4)+"° / "+toDMS(hcTengah));
+  summaryHtml += sCard("Arah Matahari (Azm)", fmt(AzmF,2)+" / "+toDMS(AzmF));
+  summaryHtml += sCard("Arah Hilal (Azc)", fmt(Azc,2)+" / "+toDMS(Azc));
+  summaryHtml += sCard("Arah Hilal dari Matahari (z)", fmt(zVar,2));
+  summaryHtml += sCard("Tinggi Haqiqi (hc)", fmt(hc,4)+" / "+toDMS(hc));
+  summaryHtml += sCard("Tinggi Mar'i (hc')", fmt(hcTengah,4)+" / "+toDMS(hcTengah));
   summaryHtml += sCard("Umur Bulan", toJMD(Math.abs(Umur))+" jam");
-  summaryHtml += sCard("Elongasi Bulan-Matahari (EL)", fmt(EL,4)+"°");
+  summaryHtml += sCard("Elongasi Bulan-Matahari (EL)", fmt(EL,4));
   summaryHtml += sCard("Besar Cahaya Hilal (FI)", fmt(FI,3)+" %");
   summaryHtml += sCard("Lebar Sabit (Cw)", fmt(Cw,4)+" menit busur");
   summaryHtml += sCard("Lama Hilal di Atas Ufuk (Mukts)", toJMD(Math.abs(Mukts)));
   summaryHtml += sCard("Hilal Terbenam Pukul (Ms)", toJMD(Ms)+" WD");
-  summaryHtml += sCard("Kemiringan Hilal (Miring)", fmt(Miring,2)+"°");
+  summaryHtml += sCard("Kemiringan Hilal (Miring)", fmt(Miring,2));
   document.getElementById('summary6').innerHTML = summaryHtml;
 
   let kesimpulanTitle, kesimpulanSub, icon, kriteriaBadge;
@@ -763,15 +810,15 @@ function hitungSemua(){
   const hilalWujud = (hcTengah > 0 && Umur > 0);
   if(kriteriaTerpenuhi){
     kesimpulanTitle = "Hilal Memenuhi Kriteria Visibilitas (MABIMS) — Awal Bulan Ditetapkan";
-    kesimpulanSub = "Tinggi hilal mar'i "+fmt(hcTengah,2)+"° (≥3°) dan elongasi "+fmt(EL,2)+"° (≥6,4°) — kriteria Neo-MABIMS terpenuhi. Dengan demikian 1 "+namaBulanTarget+" "+TahunH+" H jatuh pada "+ghurubHariName+", "+TglM+" "+BULAN_MASEHI[BulanM-1]+" "+ThnM+" M.";
+    kesimpulanSub = "Tinggi hilal mar'i "+fmt(hcTengah,2)+" (≥3) dan elongasi "+fmt(EL,2)+" (≥6,4) — kriteria Neo-MABIMS terpenuhi. Dengan demikian 1 "+namaBulanTarget+" "+TahunH+" H jatuh pada "+ghurubHariName+", "+TglM+" "+BULAN_MASEHI[BulanM-1]+" "+ThnM+" M.";
     icon="🌙"; kriteriaBadge="Memenuhi Kriteria MABIMS";
   } else if(hilalWujud){
     kesimpulanTitle = "Hilal Sudah Wujud namun Belum Memenuhi Kriteria MABIMS";
-    kesimpulanSub = "Hilal berada di atas ufuk (tinggi mar'i "+fmt(hcTengah,2)+"°, elongasi "+fmt(EL,2)+"°) saat ghurub tanggal "+TglM+" "+BULAN_MASEHI[BulanM-1]+" "+ThnM+", tetapi belum mencapai ambang kriteria Neo-MABIMS (tinggi ≥3° dan elongasi ≥6,4°). Bulan "+namaBulanTarget+" "+TahunH+" H berpotensi diistikmalkan (digenapkan 30 hari) menurut kriteria ini, namun tetap menunggu hasil rukyat dan keputusan sidang isbat.";
+    kesimpulanSub = "Hilal berada di atas ufuk (tinggi mar'i "+fmt(hcTengah,2)+", elongasi "+fmt(EL,2)+") saat ghurub tanggal "+TglM+" "+BULAN_MASEHI[BulanM-1]+" "+ThnM+", tetapi belum mencapai ambang kriteria Neo-MABIMS (tinggi ≥3 dan elongasi ≥6,4). Bulan "+namaBulanTarget+" "+TahunH+" H berpotensi diistikmalkan (digenapkan 30 hari) menurut kriteria ini, namun tetap menunggu hasil rukyat dan keputusan sidang isbat.";
     icon="🌗"; kriteriaBadge="Wujud, Belum Memenuhi Kriteria";
   } else {
     kesimpulanTitle = "Hilal Belum Wujud — Bulan Disempurnakan 30 Hari (Istikmal)";
-    kesimpulanSub = "Pada ghurub tanggal "+TglM+" "+BULAN_MASEHI[BulanM-1]+" "+ThnM+", hilal masih berada di bawah ufuk atau ijtima' terjadi setelah ghurub (tinggi mar'i "+fmt(hcTengah,2)+"°). Bulan "+namaBulanTarget+" "+TahunH+" H secara hisab diistikmalkan menjadi 30 hari, sehingga awal bulan berikutnya jatuh pada hari berikutnya setelah tanggal tersebut.";
+    kesimpulanSub = "Pada ghurub tanggal "+TglM+" "+BULAN_MASEHI[BulanM-1]+" "+ThnM+", hilal masih berada di bawah ufuk atau ijtima' terjadi setelah ghurub (tinggi mar'i "+fmt(hcTengah,2)+"). Bulan "+namaBulanTarget+" "+TahunH+" H secara hisab diistikmalkan menjadi 30 hari, sehingga awal bulan berikutnya jatuh pada hari berikutnya setelah tanggal tersebut.";
     icon="🌑"; kriteriaBadge="Hilal Belum Wujud";
   }
   document.getElementById('concTitle').textContent = kesimpulanTitle;
