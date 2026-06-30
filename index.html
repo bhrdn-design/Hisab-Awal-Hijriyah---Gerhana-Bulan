@@ -189,9 +189,9 @@ footer{text-align:center;color:var(--grey);font-size:12px;padding:30px 0 10px;}
     <div class="field">
       <label>Lintang Tempat (Lt)</label>
       <div class="coord-row">
-        <input type="number" id="lintangDerajat" value="7" placeholder="°" oninput="updateKoordinat()">
-        <input type="number" id="lintangMenit" value="15" placeholder="'" oninput="updateKoordinat()">
-        <input type="number" id="lintangDetik" value="27" step="any" placeholder="&quot;" oninput="updateKoordinat()">
+        <input type="number" id="lintangDerajat" value="7" placeholder="° Derajat" oninput="updateKoordinat()">
+        <input type="number" id="lintangMenit" value="15" placeholder="' Menit" oninput="updateKoordinat()">
+        <input type="number" id="lintangDetik" value="27" step="any" placeholder="&quot; Detik" oninput="updateKoordinat()">
         <select id="lintangArah" onchange="updateKoordinat()"><option value="LS">LS</option><option value="LU">LU</option></select>
       </div>
       <div class="dec-view">Hasil Desimal: <span id="lintangDecView">7.257500</span></div>
@@ -200,9 +200,9 @@ footer{text-align:center;color:var(--grey);font-size:12px;padding:30px 0 10px;}
     <div class="field">
       <label>Bujur Tempat (λ)</label>
       <div class="coord-row">
-        <input type="number" id="bujurDerajat" value="112" placeholder="°" oninput="updateKoordinat()">
-        <input type="number" id="bujurMenit" value="45" placeholder="'" oninput="updateKoordinat()">
-        <input type="number" id="bujurDetik" value="7.56" step="any" placeholder="&quot;" oninput="updateKoordinat()">
+        <input type="number" id="bujurDerajat" value="112" placeholder="° Derajat" oninput="updateKoordinat()">
+        <input type="number" id="bujurMenit" value="45" placeholder="' Menit" oninput="updateKoordinat()">
+        <input type="number" id="bujurDetik" value="7.56" step="any" placeholder="&quot; Detik" oninput="updateKoordinat()">
         <select id="bujurArah" onchange="updateKoordinat()"><option value="BT">BT</option><option value="BB">BB</option></select>
       </div>
       <div class="dec-view">Hasil Desimal: <span id="bujurDecView">112.752100</span></div>
@@ -312,8 +312,6 @@ footer{text-align:center;color:var(--grey);font-size:12px;padding:30px 0 10px;}
   </div>
 
   </div>
-  <!-- ===== /viewAwalBulan ===== -->
-
   <div id="viewGerhana" class="view">
 
   <div class="section-title"><div class="num">7</div><h3>Hisab Gerhana Bulan (Khusuf Al-Qamar)</h3><div class="line"></div></div>
@@ -345,9 +343,7 @@ footer{text-align:center;color:var(--grey);font-size:12px;padding:30px 0 10px;}
     <div class="summary-grid" id="summary7" style="margin-top:14px;"></div>
   </div>
   </div>
-  <!-- ===== /viewGerhana ===== -->
-
-</div>
+  </div>
 
 <footer>Semoga Bermanfaat 🙏😊</footer>
 </div>
@@ -392,7 +388,7 @@ function toJMD(jamDesimal){
 }
 function fmt(n,dec){
   if(n===null||n===undefined||isNaN(n)) return "—";
-  return (Math.round(n*Math.pow(10,dec))/Math.pow(10,dec)).toFixed(dec);
+  return (Math.round(n*Math.pow(10,dec))/Math.pow(10,dec)).toFixed(dec); // Murni desimal tanpa simbol derajat
 }
 
 const HARI_NAMES=["Sabtu","Ahad","Senin","Selasa","Rabu","Kamis","Jum'at"];
@@ -531,20 +527,20 @@ function hitungSemua(){
   html1 += row("M","29.10535608K + 207.9587074 − 0.0000333T² (mod 360)", M_, 6, M_);
   html1 += row("M'","385.81691806K + 111.1791307 + 0.0107306T² (mod 360)", Mp, 6, Mp);
   html1 += row("F","390.67050646K + 164.2162296 − 0.0016528T² (mod 360)", F_, 6, F_);
-  html1 += row("T1","(0.1734 − 0.000395T) × Sin(M)", T1_, 6, null);
-  html1 += row("T2","0.0021 × Sin(2M)", T2_, 6, null);
-  html1 += row("T3","−0.4068 × Sin(M')", T3_, 6, null);
-  html1 += row("T4","0.0161 × Sin(2M')", T4_, 6, null);
-  html1 += row("T5","−0.0004 × Sin(3M')", T5_, 6, null);
-  html1 += row("T6","0.0104 × Sin(2F)", T6_, 6, null);
-  html1 += row("T7","−0.0051 × Sin(M+M')", T7_, 6, null);
-  html1 += row("T8","−0.0074 × Sin(M−M')", T8_, 6, null);
-  html1 += row("T9","0.0004 × Sin(2F+M)", T9_, 6, null);
-  html1 += row("T10","−0.0004 × Sin(2F−M)", T10_, 6, null);
-  html1 += row("T11","−0.0006 × Sin(2F+M')", T11_, 6, null);
-  html1 += row("T12","0.0010 × Sin(2F−M')", T12_, 6, null);
-  html1 += row("T13","0.0005 × Sin(M+2M')", T13_, 6, null);
-  html1 += row("MT","Jumlah (T1 s/d T13)", MT, 6, null);
+  html1 += row("T1","(0.1734 − 0.000395T) × Sin(M)", T1_, 6, T1_);
+  html1 += row("T2","0.0021 × Sin(2M)", T2_, 6, T2_);
+  html1 += row("T3","−0.4068 × Sin(M')", T3_, 6, T3_);
+  html1 += row("T4","0.0161 × Sin(2M')", T4_, 6, T4_);
+  html1 += row("T5","−0.0004 × Sin(3M')", T5_, 6, T5_);
+  html1 += row("T6","0.0104 × Sin(2F)", T6_, 6, T6_);
+  html1 += row("T7","−0.0051 × Sin(M+M')", T7_, 6, T7_);
+  html1 += row("T8","−0.0074 × Sin(M−M')", T8_, 6, T8_);
+  html1 += row("T9","0.0004 × Sin(2F+M)", T9_, 6, T9_);
+  html1 += row("T10","−0.0004 × Sin(2F−M)", T10_, 6, T10_);
+  html1 += row("T11","−0.0006 × Sin(2F+M')", T11_, 6, T11_);
+  html1 += row("T12","0.0010 × Sin(2F−M')", T12_, 6, T12_);
+  html1 += row("T13","0.0005 × Sin(M+2M')", T13_, 6, T13_);
+  html1 += row("MT","Jumlah (T1 s/d T13)", MT, 6, MT);
   html1 += row("JD Ijtima'","JD + 0.5 + MT", JDijtimak, 6, null);
   html1 += row("JD Excel","JD Ijtima' − 2415019", JDExcel, 6, null);
   document.getElementById('tbl1').innerHTML = html1;
@@ -609,25 +605,30 @@ function hitungSemua(){
     let E_ = (6898.06/3600)*sind(m_) + (72.095/3600)*sind(2*m_) + (0.966/3600)*sind(3*m_);
     let Sp = mod360(S + E_ + Kp + Kpp - (20.47/3600));
     let delta = asind(sind(Sp)*sind(Qp));
-    let Pta = atand(tand(Sp)*cosd(Qp));
-    let PT;
-    if(Sp>=0 && Sp<=90) PT = Pta;
-    else if(Sp>90 && Sp<=270) PT = Pta+180;
-    else PT = Pta+360;
+    
+    // Perbaikan Right Ascension Matahari yang sempurna menggunakan atan2
+    let PT = mod360(r2d(Math.atan2(sind(Sp)*cosd(Qp), cosd(Sp))));
+    let Pta = PT; // Disamakan agar sesuai variabel tabel
+
     let e_ = (S - PT)/15;
     let sdm = 0.267/(1-0.017*cosd(m_));
     let h = -(sdm + (34.5/60) + Dip);
-    let cosT = ( -tand(Lt)*tand(delta) + sind(h) ) / (cosd(Lt)*cosd(delta));
+
+    // PERBAIKAN FATAL: Rumus cos sudut waktu
+    let cosT = (sind(h) - sind(Lt)*sind(delta)) / (cosd(Lt)*cosd(delta));
     cosT = Math.max(-1,Math.min(1,cosT));
     let t_ = acosd(cosT);
-    let Azm = atand( ((-sind(Lt)/tand(t_)) + cosd(Lt)*tand(delta)/sind(t_)) ) + 270;
+    
+    // PERBAIKAN: Rumus Azimuth akurat menggunakan kosinus arah
+    let Azm = mod360(360 - acosd( (sind(delta) - sind(Lt)*sind(h)) / (cosd(Lt)*cosd(h)) ));
+
     let GrLMT = t_/15 + (12 - e_);
     let GrWD = GrLMT + ((TZ*15) - lambda)/15;
     let Ra = 1.00014 - 0.01671*cosd(m_) - 0.00014*cosd(2*m_);
     let Rkm = Ra*149597870;
 
     iterData = {JD3,T3,Dip,S,m_,N,Kp,Kpp,Rp,Rpp,Qp,E_,Sp,delta,Pta,PT,e_,sdm,h,t_,Azm,GrLMT,GrWD,Ra,Rkm,ThnM,BulanM,TglM,Jam};
-    Jam = GrWD; // update tebakan
+    Jam = GrWD; // update tebakan iteratif
   }
 
   let html3 = "";
@@ -655,13 +656,13 @@ function hitungSemua(){
   html4 += row("E","(6898.06/3600)Sin(m) + (72.095/3600)Sin(2m) + (0.966/3600)Sin(3m)", d.E_, 6, d.E_);
   html4 += row("S'","(S + E + K' + K'' − 20.47/3600) (mod 360)", d.Sp, 6, d.Sp);
   html4 += row("δ (delta)","Sin⁻¹(Sin(S')×Sin(Q'))", d.delta, 6, d.delta);
-  html4 += row("Pta","Tan⁻¹(Tan(S')×Cos(Q'))", d.Pta, 6, d.Pta);
+  html4 += row("Pta","Tan⁻¹(Sin(S')Cos(Q') / Cos(S'))", d.Pta, 6, d.Pta);
   html4 += row("PT","Penyesuaian kuadran dari Pta berdasarkan S'", d.PT, 6, d.PT);
   html4 += row("e","(S − PT) / 15", d.e_, 6, d.e_, true);
   html4 += row("sdm","0.267 / (1 − 0.017×Cos(m))", d.sdm, 6, d.sdm);
   html4 += row("h","−(sdm + 34.5/60 + Dip)", d.h, 6, d.h);
-  html4 += row("t","Cos⁻¹( (−Tan(Lt)Tan(δ) + Sin(h)) / (Cos(Lt)Cos(δ)) )", d.t_, 6, d.t_);
-  html4 += row("Azm","Tan⁻¹( (−Sin(Lt)/Tan(t)) + Cos(Lt)Tan(δ)/Sin(t) ) + 270", d.Azm, 6, d.Azm);
+  html4 += row("t","Cos⁻¹( (Sin(h) − Sin(Lt)Sin(δ)) / (Cos(Lt)Cos(δ)) )", d.t_, 6, d.t_);
+  html4 += row("Azm","360 − Cos⁻¹((Sin(δ) − Sin(Lt)Sin(h)) / (Cos(Lt)Cos(h)))", d.Azm, 6, d.Azm);
   html4 += row("Gr LMT","t/15 + (12 − e)", d.GrLMT, 4, d.GrLMT, true);
   html4 += row("Gr WD","Gr LMT + ((TZ×15) − λ)/15", d.GrWD, 4, d.GrWD, true);
   html4 += row("Ra","1.00014 − 0.01671Cos(m) − 0.00014Cos(2m) [AU]", d.Ra, 8, null);
@@ -698,8 +699,10 @@ function hitungSemua(){
   const xVar = atand(sind(Mo)*tand(d.Qp));
   const yVar = Lp + xVar;
   const deltac = asind( sind(Mo)*sind(d.Qp)*sind(yVar)/sind(xVar) );
+  
   const PtcA = acosd( cosd(Mo)*cosd(Lp)/cosd(deltac) );
   const PTc = (Mo>180) ? (360-PtcA) : PtcA;
+  
   const tc = mod360(d.PT - PTc + d.t_);
   const hc = asind( sind(Lt)*sind(deltac) + cosd(Lt)*cosd(deltac)*cosd(tc) );
 
@@ -708,23 +711,32 @@ function hitungSemua(){
   const sdc = (0.5181/(pKm/384401))/2;
   const Pvar = HP*cosd(hc);
   const Ref = 0.0167/tand(hc + 7.31/(hc+4.4));
+  
   const hcA = hc - Pvar;
-  const hcAtas = (hcA>0) ? (hcA + sdc + Ref + d.Dip) : hcA;
-  const hcTengah = (hcA>0) ? (hcA + Ref + d.Dip) : hcA;
-  const hcBawah = (hcA>0) ? (hcA - sdc + Ref + d.Dip) : hcA;
+  // Perbaikan: Refraksi selalu mengangkat posisi benda angkasa tanpa peduli hcA>0 atau tidak
+  const hcAtas = hcA + sdc + Ref + d.Dip;
+  const hcTengah = hcA + Ref + d.Dip;
+  const hcBawah = hcA - sdc + Ref + d.Dip;
 
   const Umur = d.GrWD - WD2;
   const AzmF = d.Azm;
-  const Azc = atand( ((-sind(Lt)/tand(tc)) + cosd(Lt)*tand(deltac)/sind(tc)) ) + 270;
+  
+  // Perbaikan Azimuth Bulan
+  const Azc = mod360(360 - acosd( (sind(deltac) - sind(Lt)*sind(hc)) / (cosd(Lt)*cosd(hc)) ));
   const zVar = Azc - AzmF;
   const DcVar = (PTc < d.PT) ? (((PTc+360)-d.PT)/15) : ((PTc-d.PT)/15);
-  const ALval = acosd( cosd(Math.abs(hcTengah-d.h)) * cosd(Math.abs(Azc-AzmF)) );
+  
+  // Perbaikan Jarak Sudut AL menggunakan Spherical Trigonometry Mutlak
+  const ALval = acosd( sind(hcTengah)*sind(d.h) + cosd(hcTengah)*cosd(d.h)*cosd(Azc-AzmF) );
   const Cw = (1-cosd(ALval))*sdc*60;
+  
   const EL = acosd( cosd(Mo-d.Sp)*cosd(Lp) );
   const FIa = acosd(-cosd(EL));
-  const FI = (hcTengah<0) ? 0 : ((1+cosd(FIa))/2)*100;
-  const Ms = d.GrWD + DcVar;
-  const Mukts = (hcTengah<0) ? 0 : DcVar;
+  const FI = ((1+cosd(FIa))/2)*100; // Selalu dieksekusi agar BCH teoritis tampil
+  
+  // Perbaikan Mukts, waktu hilal di atas ufuk secara presisi (tinggi mar'i / kecepatan 15 derajat)
+  const Mukts = (hcTengah<0) ? 0 : (hcTengah / 15);
+  const Ms = d.GrWD + Mukts;
   const Miring = atand( (Azc-AzmF) / hcTengah );
 
   let html5 = "";
@@ -732,21 +744,21 @@ function hitungSemua(){
   html5 += row("A","134.96292 + 477198.86753T (mod 360)", Am, 6, Am);
   html5 += row("F","93.27283 + 483202.01873T (mod 360)", Fm, 6, Fm);
   html5 += row("D","297.85027 + 445267.11135T (mod 360)", Dm, 6, Dm);
-  html5 += row("T1","(22640/3600)Sin(A)", u1, 6, null);
-  html5 += row("T2","(−4586/3600)Sin(A−2D)", u2, 6, null);
-  html5 += row("T3","(2370/3600)Sin(2D)", u3, 6, null);
-  html5 += row("T4","(769/3600)Sin(2A)", u4, 6, null);
-  html5 += row("T5","(−668/3600)Sin(m)", u5, 6, null);
-  html5 += row("T6","(−412/3600)Sin(2F)", u6, 6, null);
-  html5 += row("T7","(−212/3600)Sin(2A−2D)", u7, 6, null);
-  html5 += row("T8","(−206/3600)Sin(A+m−2D)", u8, 6, null);
-  html5 += row("T9","(192/3600)Sin(A+2D)", u9, 6, null);
-  html5 += row("T10","(−165/3600)Sin(m−2D)", u10, 6, null);
-  html5 += row("T11","(148/3600)Sin(A−m)", u11, 6, null);
-  html5 += row("T12","(−125/3600)Sin(D)", u12, 6, null);
-  html5 += row("T13","(−110/3600)Sin(A+m)", u13, 6, null);
-  html5 += row("T14","(−55/3600)Sin(2F−2D)", u14, 6, null);
-  html5 += row("C","Jumlah (T1 s/d T14)", Cm, 6, null);
+  html5 += row("T1","(22640/3600)Sin(A)", u1, 6, u1);
+  html5 += row("T2","(−4586/3600)Sin(A−2D)", u2, 6, u2);
+  html5 += row("T3","(2370/3600)Sin(2D)", u3, 6, u3);
+  html5 += row("T4","(769/3600)Sin(2A)", u4, 6, u4);
+  html5 += row("T5","(−668/3600)Sin(m)", u5, 6, u5);
+  html5 += row("T6","(−412/3600)Sin(2F)", u6, 6, u6);
+  html5 += row("T7","(−212/3600)Sin(2A−2D)", u7, 6, u7);
+  html5 += row("T8","(−206/3600)Sin(A+m−2D)", u8, 6, u8);
+  html5 += row("T9","(192/3600)Sin(A+2D)", u9, 6, u9);
+  html5 += row("T10","(−165/3600)Sin(m−2D)", u10, 6, u10);
+  html5 += row("T11","(148/3600)Sin(A−m)", u11, 6, u11);
+  html5 += row("T12","(−125/3600)Sin(D)", u12, 6, u12);
+  html5 += row("T13","(−110/3600)Sin(A+m)", u13, 6, u13);
+  html5 += row("T14","(−55/3600)Sin(2F−2D)", u14, 6, u14);
+  html5 += row("C","Jumlah (T1 s/d T14)", Cm, 6, Cm);
   html5 += row("Mo","(M + C + K' + K'' − 20.47/3600) (mod 360)", Mo, 6, Mo);
   html5 += row("A'","A + T2 + T3 + T5", Apr, 6, Apr);
   html5 += row("L'","Σ suku periodik lintang bulan", Lp, 6, Lp);
@@ -763,21 +775,21 @@ function hitungSemua(){
   html5 += row("P","HP × Cos(hc)", Pvar, 6, Pvar);
   html5 += row("Ref","0.0167 / Tan(hc + 7.31/(hc+4.4))", Ref, 6, Ref);
   html5 += row("hc' a","hc − P", hcA, 6, hcA);
-  html5 += row("hc' (piringan atas)","Jika hc'a>0: hc'a+s.d.c+Ref+Dip, selain itu hc'a", hcAtas, 6, hcAtas);
-  html5 += row("hc' (piringan tengah)","Jika hc'a>0: hc'a+Ref+Dip, selain itu hc'a", hcTengah, 6, hcTengah);
-  html5 += row("hc' (piringan bawah)","Jika hc'a>0: hc'a−s.d.c+Ref+Dip, selain itu hc'a", hcBawah, 6, hcBawah);
+  html5 += row("hc' (piringan atas)","hc'a + s.d.c + Ref + Dip", hcAtas, 6, hcAtas);
+  html5 += row("hc' (piringan tengah)","hc'a + Ref + Dip", hcTengah, 6, hcTengah);
+  html5 += row("hc' (piringan bawah)","hc'a − s.d.c + Ref + Dip", hcBawah, 6, hcBawah);
   html5 += row("Umur","Ghurub (Gr WD) − Waktu Ijtima' (WD)", Umur, 4, Umur, true);
-  html5 += row("Azm","Tan⁻¹((−Sin(Lt)/Tan(t)) + Cos(Lt)Tan(δ)/Sin(t)) + 270", AzmF, 6, AzmF);
-  html5 += row("Azc","Tan⁻¹((−Sin(Lt)/Tan(tc)) + Cos(Lt)Tan(δc)/Sin(tc)) + 270", Azc, 6, Azc);
+  html5 += row("Azm","360 − Cos⁻¹((Sin(δ) − Sin(Lt)Sin(h)) / (Cos(Lt)Cos(h)))", AzmF, 6, AzmF);
+  html5 += row("Azc","360 − Cos⁻¹((Sin(δc) − Sin(Lt)Sin(hc)) / (Cos(Lt)Cos(hc)))", Azc, 6, Azc);
   html5 += row("z","Azc − Azm", zVar, 6, zVar);
   html5 += row("Dc","PTc<PT: ((PTc+360)−PT)/15, selain itu (PTc−PT)/15", DcVar, 6, DcVar, true);
-  html5 += row("AL","Cos⁻¹(Cos|hc'−h| × Cos|Azc−Azm|)", ALval, 6, ALval);
-  html5 += row("Cw","(1−Cos(AL)) × s.d.c × 60 [menit]", Cw, 4, null);
+  html5 += row("AL","Cos⁻¹(Sin(hc')Sin(h) + Cos(hc')Cos(h)Cos(Azc−Azm))", ALval, 6, ALval);
+  html5 += row("Cw","(1−Cos(AL)) × s.d.c × 60 [menit]", Cw, 4, Cw/60); // Cw dibagi 60 untuk ke derajat agar toDMS valid
   html5 += row("EL","Cos⁻¹(Cos(Mo−S')×Cos(L'))", EL, 6, EL);
   html5 += row("FIa","Cos⁻¹(−Cos(EL))", FIa, 6, FIa);
-  html5 += row("FI","Jika hc'<0: 0, selain itu ((1+Cos(FIa))/2)×100 [%]", FI, 4, null);
-  html5 += row("Ms","Gr WD + Dc", Ms, 4, Ms, true);
-  html5 += row("Mukts","Jika hc'<0: 0, selain itu Dc [jam]", Mukts, 4, Mukts, true);
+  html5 += row("FI (Besar Cahaya Hilal)","((1+Cos(FIa))/2)×100 [%]", FI, 4, null); // Null karena murni persentase tanpa DMS
+  html5 += row("Ms","Gr WD + Mukts", Ms, 4, Ms, true);
+  html5 += row("Mukts","Jika hc'<0: 0, selain itu hc'/15 [jam]", Mukts, 4, Mukts, true);
   html5 += row("Miring","Tan⁻¹((Azc−Azm)/hc')", Miring, 6, Miring);
   document.getElementById('tbl5').innerHTML = html5;
 
@@ -790,7 +802,7 @@ function hitungSemua(){
   summaryHtml += sCard("Ijtima' (Konjungsi)", Tgl2+" "+BULAN_MASEHI[bln2Idx]+" "+Thn2+" pukul "+toJMD(WD2)+" WD");
   summaryHtml += sCard("Hari / Pasaran Ijtima'", HARI_NAMES[Hr2]+" "+PASARAN_NAMES[Ps2]);
   summaryHtml += sCard("Tanggal Ghurub (Rukyat)", TglM+" "+BULAN_MASEHI[BulanM-1]+" "+ThnM);
-  summaryHtml += sCard("Maghrib Pukul", toJMD(d.GrWD)+" WD");
+  summaryHtml += sCard("Waktu Maghrib (Ghurub)", toJMD(d.GrWD)+" WD");
   summaryHtml += sCard("Arah Matahari (Azm)", fmt(AzmF,2)+" / "+toDMS(AzmF));
   summaryHtml += sCard("Arah Hilal (Azc)", fmt(Azc,2)+" / "+toDMS(Azc));
   summaryHtml += sCard("Arah Hilal dari Matahari (z)", fmt(zVar,2));
@@ -809,7 +821,7 @@ function hitungSemua(){
   const kriteriaTerpenuhi = (hcTengah >= 3 && EL >= 6.4 && Umur > 0);
   const hilalWujud = (hcTengah > 0 && Umur > 0);
   if(kriteriaTerpenuhi){
-    kesimpulanTitle = "Hilal Memenuhi Kriteria Visibilitas (MABIMS) — Awal Bulan Ditetapkan";
+    kesimpulanTitle = "Hilal Memenuhi Kriteria Visibilitas (MABIMS) — Awal Bulan Baru Ditetapkan";
     kesimpulanSub = "Tinggi hilal mar'i "+fmt(hcTengah,2)+" (≥3) dan elongasi "+fmt(EL,2)+" (≥6,4) — kriteria Neo-MABIMS terpenuhi. Dengan demikian 1 "+namaBulanTarget+" "+TahunH+" H jatuh pada "+ghurubHariName+", "+TglM+" "+BULAN_MASEHI[BulanM-1]+" "+ThnM+" M.";
     icon="🌙"; kriteriaBadge="Memenuhi Kriteria MABIMS";
   } else if(hilalWujud){
@@ -880,23 +892,23 @@ function hitungGerhana(TahunH, BlnH, TZ, Lt, lambda){
   html7a += row("F1","F − 0.02665 × Sin(Ω)", F1, 6, F1);
   html7a += row("A1","285.9142682 + 0.107408K − 0.009173T²", A1, 6, A1);
   html7a += row("E","1 − 0.002516T − 0.0000074T²", E, 6, null);
-  html7a += row("T1","−0.4065 × Sin(M')", t1, 6, null);
-  html7a += row("T2","0.1727 × E × Sin(M)", t2, 6, null);
-  html7a += row("T3","0.0161 × Sin(2M')", t3, 6, null);
-  html7a += row("T4","−0.0097 × Sin(2F1)", t4, 6, null);
-  html7a += row("T5","0.0073 × E × Sin(M'−M)", t5, 6, null);
-  html7a += row("T6","−0.0050 × E × Sin(M'+M)", t6, 6, null);
-  html7a += row("T7","−0.0023 × Sin(M'−2F1)", t7, 6, null);
-  html7a += row("T8","0.0021 × E × Sin(2M)", t8, 6, null);
-  html7a += row("T9","0.0012 × Sin(M'+2F1)", t9, 6, null);
-  html7a += row("T10","0.0006 × E × Sin(2M'+M)", t10, 6, null);
-  html7a += row("T11","−0.0004 × Sin(3M')", t11, 6, null);
-  html7a += row("T12","−0.0003 × E × Sin(M+2F1)", t12, 6, null);
-  html7a += row("T13","0.0003 × Sin(A1)", t13, 6, null);
-  html7a += row("T14","−0.0002 × E × Sin(M+2F1)", t14, 6, null);
-  html7a += row("T15","−0.0002 × E × Sin(2M'−M)", t15, 6, null);
-  html7a += row("T16","−0.0002 × Sin(Ω)", t16, 6, null);
-  html7a += row("MT","Jumlah (T1 s/d T16)", MT, 6, null);
+  html7a += row("T1","−0.4065 × Sin(M')", t1, 6, t1);
+  html7a += row("T2","0.1727 × E × Sin(M)", t2, 6, t2);
+  html7a += row("T3","0.0161 × Sin(2M')", t3, 6, t3);
+  html7a += row("T4","−0.0097 × Sin(2F1)", t4, 6, t4);
+  html7a += row("T5","0.0073 × E × Sin(M'−M)", t5, 6, t5);
+  html7a += row("T6","−0.0050 × E × Sin(M'+M)", t6, 6, t6);
+  html7a += row("T7","−0.0023 × Sin(M'−2F1)", t7, 6, t7);
+  html7a += row("T8","0.0021 × E × Sin(2M)", t8, 6, t8);
+  html7a += row("T9","0.0012 × Sin(M'+2F1)", t9, 6, t9);
+  html7a += row("T10","0.0006 × E × Sin(2M'+M)", t10, 6, t10);
+  html7a += row("T11","−0.0004 × Sin(3M')", t11, 6, t11);
+  html7a += row("T12","−0.0003 × E × Sin(M+2F1)", t12, 6, t12);
+  html7a += row("T13","0.0003 × Sin(A1)", t13, 6, t13);
+  html7a += row("T14","−0.0002 × E × Sin(M+2F1)", t14, 6, t14);
+  html7a += row("T15","−0.0002 × E × Sin(2M'−M)", t15, 6, t15);
+  html7a += row("T16","−0.0002 × Sin(Ω)", t16, 6, t16);
+  html7a += row("MT","Jumlah (T1 s/d T16)", MT, 6, MT);
   html7a += row("JD_Ist","JD + 0.5 + MT + TZ/24", JDIst, 6, null);
   html7a += row("T0 WD","Frac(JD_Ist) × 24", T0WD, 4, T0WD, true);
   document.getElementById('tbl7a').innerHTML = html7a;
@@ -983,35 +995,35 @@ function hitungGerhana(TahunH, BlnH, TZ, Lt, lambda){
   const W6 = T0 + T1g;
 
   let html7c = "";
-  html7c += row("S1","−0.0048 × E × Cos(M)", s1, 6, null);
-  html7c += row("S2","0.0020 × E × Cos(2M)", s2, 6, null);
-  html7c += row("S3","−0.3299 × Cos(M')", s3, 6, null);
-  html7c += row("S4","−0.0060 × E × Cos(M+M')", s4, 6, null);
-  html7c += row("S5","0.0041 × E × Cos(M−M')", s5, 6, null);
-  html7c += row("S","5.2207 + Σ(S1 s/d S5)", Sv, 6, null);
-  html7c += row("C1","0.0024 × E × Sin(2M)", c1, 6, null);
-  html7c += row("C2","−0.0392 × Sin(M')", c2, 6, null);
-  html7c += row("C3","0.0116 × Sin(2M')", c3, 6, null);
-  html7c += row("C4","−0.0073 × E × Sin(M+M')", c4, 6, null);
-  html7c += row("C5","−0.0067 × E × Sin(M−M')", c5, 6, null);
-  html7c += row("C6","0.0118 × Sin(2F)", c6, 6, null);
-  html7c += row("C","0.207×Sin(M) + Σ(C1 s/d C6)", Cv, 6, null);
-  html7c += row("W","|Cos(F1)|", Wv, 6, null);
-  html7c += row("Y","S×Sin(F1) + C×Cos(F1)×(1−0.0048W)", Yv, 6, null);
-  html7c += row("U1","0.0046 × E × Cos(M)", u1g, 6, null);
-  html7c += row("U2","−0.0182 × Cos(M')", u2g, 6, null);
-  html7c += row("U3","0.0004 × Cos(2M')", u3g, 6, null);
-  html7c += row("U4","−0.0005 × Cos(M+M')", u4g, 6, null);
-  html7c += row("U","0.00059 + Σ(U1 s/d U4)", Uv, 6, null);
-  html7c += row("H","1.5573 + U", Hv, 6, null);
-  html7c += row("P","1.0128 − U", Pv, 6, null);
-  html7c += row("R","0.4678 − U", Rv, 6, null);
-  html7c += row("N","0.5458 + 0.04×Cos(M')", Nv, 6, null);
-  html7c += row("MG","(1.0128 − U − |Y|) / 0.545", MG, 6, null);
+  html7c += row("S1","−0.0048 × E × Cos(M)", s1, 6, s1);
+  html7c += row("S2","0.0020 × E × Cos(2M)", s2, 6, s2);
+  html7c += row("S3","−0.3299 × Cos(M')", s3, 6, s3);
+  html7c += row("S4","−0.0060 × E × Cos(M+M')", s4, 6, s4);
+  html7c += row("S5","0.0041 × E × Cos(M−M')", s5, 6, s5);
+  html7c += row("S","5.2207 + Σ(S1 s/d S5)", Sv, 6, Sv);
+  html7c += row("C1","0.0024 × E × Sin(2M)", c1, 6, c1);
+  html7c += row("C2","−0.0392 × Sin(M')", c2, 6, c2);
+  html7c += row("C3","0.0116 × Sin(2M')", c3, 6, c3);
+  html7c += row("C4","−0.0073 × E × Sin(M+M')", c4, 6, c4);
+  html7c += row("C5","−0.0067 × E × Sin(M−M')", c5, 6, c5);
+  html7c += row("C6","0.0118 × Sin(2F)", c6, 6, c6);
+  html7c += row("C","0.207×Sin(M) + Σ(C1 s/d C6)", Cv, 6, Cv);
+  html7c += row("W","|Cos(F1)|", Wv, 6, Wv);
+  html7c += row("Y","S×Sin(F1) + C×Cos(F1)×(1−0.0048W)", Yv, 6, Yv);
+  html7c += row("U1","0.0046 × E × Cos(M)", u1g, 6, u1g);
+  html7c += row("U2","−0.0182 × Cos(M')", u2g, 6, u2g);
+  html7c += row("U3","0.0004 × Cos(2M')", u3g, 6, u3g);
+  html7c += row("U4","−0.0005 × Cos(M+M')", u4g, 6, u4g);
+  html7c += row("U","0.00059 + Σ(U1 s/d U4)", Uv, 6, Uv);
+  html7c += row("H","1.5573 + U", Hv, 6, Hv);
+  html7c += row("P","1.0128 − U", Pv, 6, Pv);
+  html7c += row("R","0.4678 − U", Rv, 6, Rv);
+  html7c += row("N","0.5458 + 0.04×Cos(M')", Nv, 6, Nv);
+  html7c += row("MG","(1.0128 − U − |Y|) / 0.545", MG, 6, null); // MG adalah magnitude rasio (bukan sudut)
   html7c += rowText("Status Gerhana","MG≤0: Tidak Gerhana, 0<MG<1: Sebagian, MG>1: Total", statusGerhana);
-  html7c += row("T1","60/N × √|H²−Y²| / 60", T1g, 6, null);
-  html7c += row("T2","60/N × √|P²−Y²| / 60", T2g, 6, null);
-  html7c += row("T3","60/N × √|R²−Y²| / 60", T3g, 6, null);
+  html7c += row("T1","60/N × √|H²−Y²| / 60", T1g, 6, T1g, true); // Ditampilkan dalam mode waktu
+  html7c += row("T2","60/N × √|P²−Y²| / 60", T2g, 6, T2g, true); // Ditampilkan dalam mode waktu
+  html7c += row("T3","60/N × √|R²−Y²| / 60", T3g, 6, T3g, true); // Ditampilkan dalam mode waktu
   html7c += row("W1 (Awal Penumbra)","T0 − T1", W1, 4, W1, true);
   html7c += row("W2 (Awal Umbra)","T0 − T2", W2, 4, W2, true);
   html7c += row("W3 (Awal Total)","T0 − T3", W3, 4, W3, true);
